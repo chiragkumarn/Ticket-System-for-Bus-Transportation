@@ -51,13 +51,13 @@
         <form id="ticketForm">
             <label for="source">Source:</label>
             <select id="source" name="source">
-                <option value="A">Stop A</option>
+                <option value="A">Stop A</option>// Here u can add ur source stops
                 <option value="B">Stop B</option>
                 <option value="C">Stop C</option>
                 <option value="D">Stop D</option>
             </select>
 
-            <label for="destination">Destination:</label>
+            <label for="destination">Destination:</label>// Here u can add ur destination stops
             <select id="destination" name="destination">
                 <option value="A">Stop A</option>
                 <option value="B">Stop B</option>
@@ -94,7 +94,7 @@
             document.getElementById('ticketDetails').innerText = ticketDetails;
 
             // Generate QR code for UPI payment link with the calculated price
-            const upiLink = `upi://pay?pa=your-upi-id@bank&pn=Your%20Name&am=${price}&cu=INR&tn=Bus%20Ticket%20Payment`;
+            const upiLink = `upi://pay?pa=your-upi-id@bank&pn=Your%20Name&am=${price}&cu=INR&tn=Bus%20Ticket%20Payment`; // Link ur upi link here 
             const qrCodeContainer = document.getElementById('qrCode');
             qrCodeContainer.innerHTML = ''; // Clear any existing QR code
 
