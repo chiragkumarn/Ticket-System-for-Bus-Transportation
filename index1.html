@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ticket for Bus Transportation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label, input, button {
+            margin: 10px 0;
+        }
+
+        #ticket {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .qrCodeImage {
+            margin-top: 10px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bus E-Ticket System</h1>
+        <form id="ticketForm">
+            <label for="source">Source:</label>
+            <input type="text" id="source" name="source" required>
+
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" required>
+
+            <button type="button" onclick="generateTicket()">Generate Ticket</button>
+        </form>
+        <div id="ticket">
+            <p id="ticketDetails"></p>
+            <div id="qrCode" class="qrCodeImage"></div>
+        </div>
+    </div>
+    <script>
+        function generateTicket() {
+            const source = document.getElementById('source').value;
+            const destination = document.getElementById('destination').value;
+            const pricePerStop = 5;
+            const stops = calculateStops(source, destination);
+            let price = stops * pricePerStop;
+
+            // Cap the price at 20 units
+            if (price > 20) {
+                price = 20;
+            }
+
+            const ticketDetails = `Source: ${source}\nDestination: ${destination}\nPrice: ₹${price}`;
+            document.getElementById('ticketDetails').innerText = ticketDetails;
+
+            // Generate QR code for UPI payment link with the calculated price
+            const upiLink = `upi://pay?pa=your-upi-id@bank&pn=Your%20Name&am=${price}&cu=INR&tn=Bus%20Ticket%20Payment`;
+            const qrCodeContainer = document.getElementById('qrCode');
+            qrCodeContainer.innerHTML = ''; // Clear any existing QR code
+
+            new QRCode(qrCodeContainer, {
+                text: upiLink,
+                width: 128,
+                height: 128
+            });
+        }
+
+        function calculateStops(source, destination) {
+            // This function calculates the number of stops between source and destination.
+            // For simplicity, we'll assume each character difference as a stop.
+            return Math.abs(source.length - destination.length) || 1; // Ensure at least one stop.
+        }
+    </script>
+</body>
+</html>
