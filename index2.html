@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ticket for Bus Transportation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label, input, button {
+            margin: 10px 0;
+        }
+
+        #ticket {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .qrCodeImage {
+            margin-top: 10px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bus E-Ticket System</h1>
+        <form id="ticketForm">
+            <label for="source">Source:</label>
+            <select id="source" name="source">
+                <option value="A">Stop A</option>
+                <option value="B">Stop B</option>
+                <option value="C">Stop C</option>
+                <option value="D">Stop D</option>
+            </select>
+
+            <label for="destination">Destination:</label>
+            <select id="destination" name="destination">
+                <option value="A">Stop A</option>
+                <option value="B">Stop B</option>
+                <option value="C">Stop C</option>
+                <option value="D">Stop D</option>
+            </select>
+
+            <button type="button" onclick="generateTicket()">Generate Ticket</button>
+        </form>
+        <div id="ticket">
+            <p id="ticketDetails"></p>
+            <div id="qrCode" class="qrCodeImage"></div>
+        </div>
+    </div>
+    <script>
+        const stops = ['A', 'B', 'C', 'D'];
+
+        function generateTicket() {
+            const source = document.getElementById('source').value;
+            const destination = document.getElementById('destination').value;
+
+            const sourceIndex = stops.indexOf(source);
+            const destinationIndex = stops.indexOf(destination);
+            const stopsCount = Math.abs(destinationIndex - sourceIndex);
+            const pricePerStop = 5;
+            let price = stopsCount * pricePerStop;
+
+            // Cap the price at 20 units
+            if (price > 20) {
+                price = 20;
+            }
+
+            const ticketDetails = `Source: ${source}\nDestination: ${destination}\nPrice: ₹${price}`;
+            document.getElementById('ticketDetails').innerText = ticketDetails;
+
+            // Generate QR code for UPI payment link with the calculated price
+            const upiLink = `upi://pay?pa=your-upi-id@bank&pn=Your%20Name&am=${price}&cu=INR&tn=Bus%20Ticket%20Payment`;
+            const qrCodeContainer = document.getElementById('qrCode');
+            qrCodeContainer.innerHTML = ''; // Clear any existing QR code
+
+            new QRCode(qrCodeContainer, {
+                text: upiLink,
+                width: 128,
+                height: 128
+            });
+        }
+    </script>
+</body>
+</html>
