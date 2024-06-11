@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f4f4f4;// u can add any color here
             margin: 0;
             padding: 0;
         }
@@ -79,7 +79,7 @@
             document.getElementById('ticketDetails').innerText = ticketDetails;
 
             // Generate QR code for UPI payment link with the calculated price
-            const upiLink = `upi://pay?pa=your-upi-id@bank&pn=Your%20Name&am=${price}&cu=INR&tn=Bus%20Ticket%20Payment`;## U can add ur upi link here to link to ur account
+            const upiLink = `upi://pay?pa=your-upi-id@bank&pn=Your%20Name&am=${price}&cu=INR&tn=Bus%20Ticket%20Payment`;// U can add ur upi link here to link to ur account
             const qrCodeContainer = document.getElementById('qrCode');
             qrCodeContainer.innerHTML = ''; // Clear any existing QR code
 
@@ -93,7 +93,7 @@
         function calculateStops(source, destination) {
             // This function calculates the number of stops between source and destination.
             // For simplicity, we'll assume each character difference as a stop.
-            return Math.abs(source.length - destination.length) || 1; // Ensure at least one stop.
+            return Math.abs(source.length - destination.length) || 1; // Ensure at least one stop.// This is not based on actual source and destination
         }
     </script>
 </body>
