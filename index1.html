@@ -79,7 +79,7 @@
             document.getElementById('ticketDetails').innerText = ticketDetails;
 
             // Generate QR code for UPI payment link with the calculated price
-            const upiLink = `upi://pay?pa=your-upi-id@bank&pn=Your%20Name&am=${price}&cu=INR&tn=Bus%20Ticket%20Payment`;
+            const upiLink = `upi://pay?pa=your-upi-id@bank&pn=Your%20Name&am=${price}&cu=INR&tn=Bus%20Ticket%20Payment`;## U can add ur upi link here to link to ur account
             const qrCodeContainer = document.getElementById('qrCode');
             qrCodeContainer.innerHTML = ''; // Clear any existing QR code
 
